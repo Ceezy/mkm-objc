@@ -1,5 +1,5 @@
 //
-//  NSDate+Timestamp.h
+//  NSDate+MKM_Timestamp.h
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/11/15.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSNumber *NSNumberFromDate(const NSDate *date);
+NSNumber *MKM_NSNumberFromDate(const NSDate *date);
 
-NSDate *NSDateFromNumber(const NSNumber *timestamp);
+NSDate *MKM_NSDateFromNumber(const NSNumber *timestamp);
 
 NS_ASSUME_NONNULL_END

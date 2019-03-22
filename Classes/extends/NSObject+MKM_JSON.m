@@ -1,16 +1,16 @@
 //
-//  NSObject+JsON.m
+//  NSObject+MKM_JsON.m
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/9/28.
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
+#import "NSObject+MKM_JSON.h"
 
-@implementation NSObject (JsON)
+@implementation NSObject (MKM_JSON)
 
-- (NSData *)jsonData {
+- (NSData *)mkm_jsonData {
     NSData *data = nil;
     
     if ([NSJSONSerialization isValidJSONObject:self]) {
@@ -26,23 +26,23 @@
     return data;
 }
 
-- (NSString *)jsonString {
-    return [[self jsonData] UTF8String];
+- (NSString *)mkm_jsonString {
+    return [[self mkm_jsonData] mkm_UTF8String];
 }
 
 @end
 
-@implementation NSString (Convert)
+@implementation NSString (MKM_Convert)
 
-- (NSData *)data {
+- (NSData *)mkm_data {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end
 
-@implementation NSData (Convert)
+@implementation NSData (MKM_Convert)
 
-- (NSString *)UTF8String {
+- (NSString *)mkm_UTF8String {
     const unsigned char * bytes = self.bytes;
     NSUInteger length = self.length;
     while (length > 0) {
@@ -57,40 +57,40 @@
 
 @end
 
-@implementation NSData (JsON)
+@implementation NSData (MKM_JSON)
 
-- (id)jsonObject {
+- (id)mkm_jsonObject {
     NSError *error = nil;
     id obj = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingAllowFragments error:&error];
     NSAssert(!error, @"json error: %@", error);
     return obj;
 }
 
-- (id)jsonMutableContainer {
+- (id)mkm_jsonMutableContainer {
     NSError *error = nil;
     id obj = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingMutableContainers error:&error];
     NSAssert(!error, @"json error: %@", error);
     return obj;
 }
 
-- (NSString *)jsonString {
-    return [self jsonObject];
+- (NSString *)mkm_jsonString {
+    return [self mkm_jsonObject];
 }
 
-- (NSArray *)jsonArray {
-    return [self jsonObject];
+- (NSArray *)mkm_jsonArray {
+    return [self mkm_jsonObject];
 }
 
-- (NSDictionary *)jsonDictionary {
-    return [self jsonObject];
+- (NSDictionary *)mkm_jsonDictionary {
+    return [self mkm_jsonObject];
 }
 
-- (NSMutableArray *)jsonMutableArray {
-    return [self jsonMutableContainer];
+- (NSMutableArray *)mkm_jsonMutableArray {
+    return [self mkm_jsonMutableContainer];
 }
 
-- (NSMutableDictionary *)jsonMutableDictionary {
-    return [self jsonMutableContainer];
+- (NSMutableDictionary *)mkm_jsonMutableDictionary {
+    return [self mkm_jsonMutableContainer];
 }
 
 @end

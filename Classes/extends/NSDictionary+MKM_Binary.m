@@ -1,16 +1,16 @@
 //
-//  NSDictionary+Binary.m
+//  NSDictionary+MKM_Binary.m
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/11/8.
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSDictionary+Binary.h"
+#import "NSDictionary+MKM_Binary.h"
 
-@implementation NSDictionary (Binary)
+@implementation NSDictionary (MKM_Binary)
 
-- (BOOL)writeToBinaryFile:(NSString *)path {
+- (BOOL)mkm_writeToBinaryFile:(NSString *)path {
     NSData *data;
     NSPropertyListFormat fmt = NSPropertyListBinaryFormat_v1_0;
     NSPropertyListWriteOptions opt = 0;

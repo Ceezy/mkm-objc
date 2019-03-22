@@ -10,9 +10,9 @@
 
 #import <MingKeMing/MingKeMing.h>
 
-#import "NSObject+JsON.h"
-#import "NSData+Crypto.h"
-#import "NSString+Crypto.h"
+#import "NSObject+MKM_JSON.h"
+#import "NSData+MKM_Crypto.h"
+#import "NSString+MKM_Decode.h"
 
 #import "MKMImmortals.h"
 
@@ -73,7 +73,7 @@ static inline void print_id(const MKMID *ID) {
 - (void)testHash {
     
     NSString *string = @"moky";
-    NSData *data = [string data];
+    NSData *data = [string mkm_data];
     
     NSData *hash;
     NSString *res;
@@ -82,16 +82,16 @@ static inline void print_id(const MKMID *ID) {
     
     // sha256（moky）= cb98b739dd699aa44bb6ebba128d20f2d1e10bb3b4aa5ff4e79295b47e9ed76d
     exp = @"cb98b739dd699aa44bb6ebba128d20f2d1e10bb3b4aa5ff4e79295b47e9ed76d";
-    hash = [data sha256];
-    res = [hash hexEncode];
+    hash = [data mkm_sha256];
+    res = [hash mkm_hexEncode];
     NSLog(@"sha256(%@) = %@", string, res);
     NSAssert([res isEqual:exp], @"sha256 error: %@ != %@", res, exp);
     
     
     // ripemd160(moky) = 44bd174123aee452c6ec23a6ab7153fa30fa3b91
     exp = @"44bd174123aee452c6ec23a6ab7153fa30fa3b91";
-    hash = [data ripemd160];
-    res = [hash hexEncode];
+    hash = [data mkm_ripemd160];
+    res = [hash mkm_hexEncode];
     NSLog(@"ripemd160(%@) = %@", string, res);
     NSAssert([res isEqual:exp], @"ripemd160 error: %@ != %@", res, exp);
     
@@ -100,12 +100,12 @@ static inline void print_id(const MKMID *ID) {
 - (void)testEncode {
     
     NSString *string = @"moky";
-    NSData *data = [string data];
+    NSData *data = [string mkm_data];
     
     NSString *enc;
     
     // base58(moky) = 3oF5MJ
-    enc = [data base58Encode];
+    enc = [data mkm_base58Encode];
     NSLog(@"base58(%@) = %@", string, enc);
     
     NSAssert([enc isEqualToString:@"3oF5MJ"], @"base 58 encode error");
@@ -116,8 +116,8 @@ static inline void print_id(const MKMID *ID) {
                           @"data": @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDr2zVbMu4zFOdimKVD4DlW0Uol\nEtUocA9QESbKVdv8sjFY29JROrXNGHW0uD1cyGSLJyKVuDu7PnvgcUILeSpV+TEn\nNrMN5KSSTeWyOmh5n8NI5WqT3qpCk5vNMa4e/4/Yuh/Hy4d3KOmFO0cVa29e0GmV\nDHkGqw6f7uykdGVnNwIDAQAB\n-----END PUBLIC KEY-----"};
     MKMPublicKey *PK = [MKMPublicKey keyWithKey:key];
     NSLog(@"PK: %@", PK);
-    NSLog(@"PK.json: %@", [PK jsonString]);
-    NSString *data = [PK.data base64Encode];
+    NSLog(@"PK.json: %@", [PK mkm_jsonString]);
+    NSString *data = [PK.data mkm_base64Encode];
     NSLog(@"PK.data: %@", data);
     
     NSAssert([data isEqualToString:@"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDr2zVbMu4zFOdimKVD4DlW0UolEtUocA9QESbKVdv8sjFY29JROrXNGHW0uD1cyGSLJyKVuDu7PnvgcUILeSpV+TEnNrMN5KSSTeWyOmh5n8NI5WqT3qpCk5vNMa4e/4/Yuh/Hy4d3KOmFO0cVa29e0GmVDHkGqw6f7uykdGVnNwIDAQAB"], @"data error");
@@ -126,7 +126,7 @@ static inline void print_id(const MKMID *ID) {
 - (void)testSymmetric {
     
     NSString *string = @"moky";
-    NSData *data = [string data];
+    NSData *data = [string mkm_data];
     
     MKMSymmetricKey *key;
     
@@ -140,15 +140,15 @@ static inline void print_id(const MKMID *ID) {
     CT = [key encrypt:data];
     dec = [key decrypt:CT];
     NSLog(@"key: %@", key);
-    NSLog(@"%@ -> %@ -> %@", string, [CT base64Encode], [dec UTF8String]);
+    NSLog(@"%@ -> %@ -> %@", string, [CT mkm_base64Encode], [dec mkm_UTF8String]);
     NSAssert([dec isEqual:data], @"en/decrypt error");
     
     string = @"XX5qfromb3R078VVK7LwVA==";
-    CT = [string base64Decode];
+    CT = [string mkm_base64Decode];
     dec = [key decrypt:CT];
-    NSLog(@"%@ -> %@", string, [dec UTF8String]);
+    NSLog(@"%@ -> %@", string, [dec mkm_UTF8String]);
     dec = [key decrypt:CT];
-    NSLog(@"%@ -> %@", string, [dec UTF8String]);
+    NSLog(@"%@ -> %@", string, [dec mkm_UTF8String]);
 
     
 //    // 2
@@ -165,7 +165,7 @@ static inline void print_id(const MKMID *ID) {
 - (void)testAsymmetric {
     
     NSString *string = @"moky";
-    NSData *data = [string data];
+    NSData *data = [string mkm_data];
     
     MKMPrivateKey *SK = [[MKMPrivateKey alloc] init];
     MKMPublicKey *PK = SK.publicKey;
@@ -174,11 +174,11 @@ static inline void print_id(const MKMID *ID) {
     
     NSData *CT = [PK encrypt:data];
     NSData *dec = [SK decrypt:CT];
-    NSLog(@"%@ -> %@ -> %@", string, [CT base64Encode], [dec UTF8String]);
+    NSLog(@"%@ -> %@ -> %@", string, [CT mkm_base64Encode], [dec mkm_UTF8String]);
     NSAssert([dec isEqual:data], @"en/decrypt error");
     
     NSData *sig = [SK sign:data];
-    NSLog(@"sign(%@) = %@", [data UTF8String], [sig base64Encode]);
+    NSLog(@"sign(%@) = %@", [data mkm_UTF8String], [sig mkm_base64Encode]);
     
     if ([PK verify:data withSignature:sig]) {
         NSLog(@"==== CORRECT!");
@@ -266,7 +266,7 @@ static inline void print_id(const MKMID *ID) {
     MKMNetworkType network = MKMNetwork_Main;
     NSUInteger suffix = 9527;
     
-    NSData *data = [name data];
+    NSData *data = [name mkm_data];
     
     NSData *CT;
     MKMAddress *addr;

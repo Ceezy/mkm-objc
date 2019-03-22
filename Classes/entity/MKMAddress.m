@@ -6,8 +6,8 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSString+Crypto.h"
-#import "NSData+Crypto.h"
+#import "NSString+MKM_Decode.h"
+#import "NSData+MKM_Crypto.h"
 
 #import "MKMAddress.h"
 
@@ -34,7 +34,7 @@ typedef NS_ENUM(u_char, MKMAddressFlag) {
  */
 static inline NSData * check_code(const NSData *data) {
     assert([data length] == 21);
-    data = [data sha256d];
+    data = [data mkm_sha256d];
     assert([data length] == 32);
     return [data subdataWithRange:NSMakeRange(0, 4)];
 }
@@ -59,7 +59,7 @@ static inline UInt32 user_number(const NSData *cc) {
  @param address - MKM address
  */
 static inline void parse_btc_address(const NSString *string, MKMAddress *address) {
-    NSData *data = [string base58Decode];
+    NSData *data = [string mkm_base58Decode];
     NSUInteger len = [data length];
     if (len == 25) {
         // Network ID
@@ -131,7 +131,7 @@ static inline void parse_btc_address(const NSString *string, MKMAddress *address
          */
         
         // 1. hash = ripemd160(sha256(CT))
-        NSData *hash = [[CT sha256] ripemd160];
+        NSData *hash = [[CT mkm_sha256] mkm_ripemd160];
         // 2. _h = network + hash
         NSMutableData *data;
         data = [[NSMutableData alloc] initWithBytes:&type length:1];
@@ -141,7 +141,7 @@ static inline void parse_btc_address(const NSString *string, MKMAddress *address
         code = user_number(cc);
         // 4. addr = base58_encode(_h + cc)
         [data appendData:cc];
-        string = [data base58Encode];
+        string = [data mkm_base58Encode];
         
         flag = MKMAddressNormal;
     } else {

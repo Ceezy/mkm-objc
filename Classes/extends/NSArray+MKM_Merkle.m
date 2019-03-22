@@ -1,15 +1,15 @@
 //
-//  NSArray+Merkle.m
+//  NSArray+MKM_Merkle.m
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/10/5.
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSData+Crypto.h"
-#import "NSString+Crypto.h"
+#import "NSData+MKM_Crypto.h"
+#import "NSString+MKM_Decode.h"
 
-#import "NSArray+Merkle.h"
+#import "NSArray+MKM_Merkle.h"
 
 static inline NSData *merge_data(NSData *data1, NSData *data2) {
     assert(data1);
@@ -21,9 +21,9 @@ static inline NSData *merge_data(NSData *data1, NSData *data2) {
     return mData;
 }
 
-@implementation NSArray (Merkle)
+@implementation NSArray (MKM_Merkle)
 
-- (NSData *)merkleRoot {
+- (NSData *)mkm_merkleRoot {
     NSUInteger count = [self count];
     if (count == 0) {
         return nil;
@@ -41,7 +41,7 @@ static inline NSData *merge_data(NSData *data1, NSData *data2) {
             NSAssert([item isKindOfClass:[NSData class]], @"error item: %@", item);
             data = item;
         }
-        [mArray addObject:[data sha256d]];
+        [mArray addObject:[data mkm_sha256d]];
     }
     
     NSData *data1, *data2;
@@ -60,7 +60,7 @@ static inline NSData *merge_data(NSData *data1, NSData *data2) {
             data2 = [mArray objectAtIndex:(pos+1)];
             // data = sha256(data1 + data2)
             data = merge_data(data1, data2);
-            data = [data sha256d];
+            data = [data mkm_sha256d];
             [mArray replaceObjectAtIndex:(pos/2) withObject:data];
         }
         

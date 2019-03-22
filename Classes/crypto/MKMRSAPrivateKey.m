@@ -6,8 +6,8 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSString+Crypto.h"
-#import "NSData+Crypto.h"
+#import "NSString+MKM_Decode.h"
+#import "NSData+MKM_Crypto.h"
 
 #import "MKMRSAKeyHelper.h"
 #import "MKMRSAPublicKey.h"
@@ -70,7 +70,7 @@
 
 - (NSData *)data {
     if (!_data) {
-        _data = [self.privateContent base64Decode];
+        _data = [self.privateContent mkm_base64Decode];
     }
     return _data;
 }
@@ -125,7 +125,7 @@
         NSString *privateContent = self.privateContent;
         if (privateContent) {
             // key from data
-            NSData *data = [privateContent base64Decode];
+            NSData *data = [privateContent mkm_base64Decode];
             _privateKeyRef = SecKeyRefFromPrivateData(data);
             break;
         }
@@ -155,7 +155,7 @@
         // 2.4. key to data
         NSData *privateKeyData = NSDataFromSecKeyRef(_privateKeyRef);
         if (privateKeyData) {
-            _privateContent = [privateKeyData base64Encode];
+            _privateContent = [privateKeyData mkm_base64Encode];
             NSString *pem = NSStringFromRSAPrivateKeyContent(_privateContent);
             [_storeDictionary setObject:pem forKey:@"data"];
         } else {
@@ -188,7 +188,7 @@
         // get public key content from private key
         SecKeyRef publicKeyRef = SecKeyCopyPublicKey(privateKeyRef);
         NSData *publicKeyData = NSDataFromSecKeyRef(publicKeyRef);
-        NSString *content = [publicKeyData base64Encode];
+        NSString *content = [publicKeyData mkm_base64Encode];
         return NSStringFromRSAPublicKeyContent(content);
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+Compare.h"
+#import "NSObject+MKM_Compare.h"
 
 #import "MKMID.h"
 

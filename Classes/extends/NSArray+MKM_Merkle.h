@@ -1,5 +1,5 @@
 //
-//  NSArray+Merkle.h
+//  NSArray+MKM_Merkle.h
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/10/5.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSArray (Merkle)
+@interface NSArray (MKM_Merkle)
 
-- (NSData *)merkleRoot;
+- (NSData *)mkm_merkleRoot;
 
 @end
 

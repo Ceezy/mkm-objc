@@ -6,9 +6,9 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
-#import "NSString+Crypto.h"
-#import "NSData+Crypto.h"
+#import "NSObject+MKM_JSON.h"
+#import "NSString+MKM_Decode.h"
+#import "NSData+MKM_Crypto.h"
 
 #import "MKMPublicKey.h"
 #import "MKMPrivateKey.h"
@@ -66,10 +66,10 @@ static inline void parse_meta_dictionary(const NSDictionary *dict, MKMMeta *meta
             assert(seed.length > 0);
             // fingerprint
             NSString *fingerprint = [dict objectForKey:@"fingerprint"];
-            NSData *CT = [fingerprint base64Decode];
+            NSData *CT = [fingerprint mkm_base64Decode];
             assert(CT.length > 0);
             
-            if ([PK verify:[seed data] withSignature:CT]) {
+            if ([PK verify:[seed mkm_data] withSignature:CT]) {
                 meta.version = version;
                 meta.key = PK;
                 meta.seed = seed;
@@ -145,13 +145,13 @@ static inline void parse_meta_dictionary(const NSDictionary *dict, MKMMeta *meta
     NSDictionary *dict = @{@"version"    :@(version),
                            @"seed"       :name,
                            @"key"        :PK,
-                           @"fingerprint":[CT base64Encode],
+                           @"fingerprint":[CT mkm_base64Encode],
                            };
     if (self = [super initWithDictionary:dict]) {
         if (version != MKMMetaVersion_MKM && version != MKMMetaVersion_ExBTC) {
             NSAssert(false, @"meta version error");
             _flag = MKMMetaError;
-        } else if ([PK verify:[name data] withSignature:CT]) {
+        } else if ([PK verify:[name mkm_data] withSignature:CT]) {
             _flag = MKMMetaNormal;
         } else {
             _flag = MKMMetaError;
@@ -180,7 +180,7 @@ static inline void parse_meta_dictionary(const NSDictionary *dict, MKMMeta *meta
     } else {
         PK = [SK publicKey];
     }
-    NSData *CT = [SK sign:[name data]];
+    NSData *CT = [SK sign:[name mkm_data]];
     return [self initWithVersion:version seed:name publicKey:PK fingerprint:CT];
 }
 
@@ -270,7 +270,7 @@ static inline void parse_meta_dictionary(const NSDictionary *dict, MKMMeta *meta
         return YES;
     }
     // check whether keys equal by verifying signature
-    return [PK verify:[_seed data] withSignature:_fingerprint];
+    return [PK verify:[_seed mkm_data] withSignature:_fingerprint];
 }
 
 #pragma mark - ID & address

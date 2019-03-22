@@ -6,7 +6,7 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
+#import "NSObject+MKM_JSON.h"
 
 #import "MKMPublicKey.h"
 #import "MKMPrivateKey.h"
@@ -42,10 +42,10 @@
 
 - (NSString *)debugDescription {
     NSString *desc = [super debugDescription];
-    NSDictionary *dict = [[desc data] jsonDictionary];
+    NSDictionary *dict = [[desc mkm_data] mkm_jsonDictionary];
     NSMutableDictionary *info = [dict mutableCopy];
     [info setObject:@(self.contacts.count) forKey:@"contacts"];
-    return [info jsonString];
+    return [info mkm_jsonString];
 }
 
 - (MKMPrivateKey *)privateKey {

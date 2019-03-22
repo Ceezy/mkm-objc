@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Decode)
+@interface NSString (MKM_Decode)
 
-- (NSData *)hexDecode;
+- (NSData *)mkm_hexDecode;
 
-- (NSData *)base58Decode;
-- (NSData *)base64Decode;
+- (NSData *)mkm_base58Decode;
+- (NSData *)mkm_base64Decode;
 
 @end
 

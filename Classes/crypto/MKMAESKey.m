@@ -8,8 +8,8 @@
 
 #import <CommonCrypto/CommonCryptor.h>
 
-#import "NSData+Crypto.h"
-#import "NSString+Crypto.h"
+#import "NSData+MKM_Crypto.h"
+#import "NSString+MKM_Decode.h"
 
 #import "MKMAESKey.h"
 
@@ -59,7 +59,7 @@ static inline NSData *random_data(NSUInteger size) {
         // data
         PW = [_storeDictionary objectForKey:@"data"];
         if (PW) {
-            _data = [PW base64Decode];
+            _data = [PW mkm_base64Decode];
             break;
         }
         
@@ -70,13 +70,13 @@ static inline NSData *random_data(NSUInteger size) {
             size = [keySize unsignedIntegerValue];
         }
         _data = random_data(size);
-        PW = [_data base64Encode];
+        PW = [_data mkm_base64Encode];
         [_storeDictionary setObject:PW forKey:@"data"];
         
         // random initialization vector
         NSUInteger blockSize = kCCBlockSizeAES128;
         _initializationVector = random_data(blockSize);
-        NSString *IV = [_initializationVector base64Encode];
+        NSString *IV = [_initializationVector mkm_base64Encode];
         [_storeDictionary setObject:IV forKey:@"iv"];
         
         break;
@@ -110,7 +110,7 @@ static inline NSData *random_data(NSUInteger size) {
         if (!iv) {
             iv = [_storeDictionary objectForKey:@"initializationVector"];
         }
-        _initializationVector = [iv base64Decode];
+        _initializationVector = [iv mkm_base64Decode];
     }
     return _initializationVector;
 }
@@ -123,8 +123,8 @@ static inline NSData *random_data(NSUInteger size) {
     
     // AES encrypt algorithm
     if (self.keySize == kCCKeySizeAES256) {
-        ciphertext = [plaintext AES256EncryptWithKey:self.data
-                                initializationVector:self.initializationVector];
+        ciphertext = [plaintext mkm_AES256EncryptWithKey:self.data
+                                    initializationVector:self.initializationVector];
     }
     
     return ciphertext;
@@ -136,8 +136,8 @@ static inline NSData *random_data(NSUInteger size) {
     
     // AES decrypt algorithm
     if (self.keySize == kCCKeySizeAES256) {
-        plaintext = [ciphertext AES256DecryptWithKey:self.data
-                                initializationVector:self.initializationVector];
+        plaintext = [ciphertext mkm_AES256DecryptWithKey:self.data
+                                    initializationVector:self.initializationVector];
     }
     
     return plaintext;

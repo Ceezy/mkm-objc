@@ -1,5 +1,5 @@
 //
-//  NSDictionary+Binary.h
+//  NSDictionary+MKM_Binary.h
 //  MingKeMing
 //
 //  Created by Albert Moky on 2018/11/8.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDictionary (Binary)
+@interface NSDictionary (MKM_Binary)
 
-- (BOOL)writeToBinaryFile:(NSString *)path;
+- (BOOL)mkm_writeToBinaryFile:(NSString *)path;
 
 @end
 

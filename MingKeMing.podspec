@@ -10,8 +10,9 @@ Pod::Spec.new do |s|
 
     s.platform     = :ios, '11.0'
 
-    s.public_header_files = 'Classes/MingKeMing.h'
-    s.source_files = 'Classes/MingKeMing.h'
+    s.public_header_files = 'Classes/*.h', 'Classes/**/*.h'
+    s.private_header_files = 'Classes/bitcoin/src/*.h', 'Classes/bitcoin/src/**/*.h'
+    s.source_files = 'Classes/*.{h,m}', 'Classes/**/*.{h,m}'
 
     s.frameworks = 'Security'
 end

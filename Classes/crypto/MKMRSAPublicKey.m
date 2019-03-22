@@ -6,9 +6,9 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
-#import "NSString+Crypto.h"
-#import "NSData+Crypto.h"
+#import "NSObject+MKM_JSON.h"
+#import "NSString+MKM_Decode.h"
+#import "NSData+MKM_Crypto.h"
 
 #import "MKMRSAKeyHelper.h"
 #import "MKMRSAPrivateKey.h"
@@ -67,7 +67,7 @@
 
 - (NSData *)data {
     if (!_data) {
-        _data = [self.publicContent base64Decode];
+        _data = [self.publicContent mkm_base64Decode];
     }
     return _data;
 }
@@ -121,7 +121,7 @@
         NSString *publicContent = self.publicContent;
         if (publicContent) {
             // key from data
-            NSData *data = [publicContent base64Decode];
+            NSData *data = [publicContent mkm_base64Decode];
             _publicKeyRef = SecKeyRefFromPublicData(data);
         }
     }

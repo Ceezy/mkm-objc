@@ -6,7 +6,7 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
+#import "NSObject+MKM_JSON.h"
 
 #import "MKMCryptographyKey.h"
 
@@ -64,7 +64,7 @@
 }
 
 - (instancetype)initWithJSONString:(const NSString *)json {
-    NSDictionary *dict = [[json data] jsonDictionary];
+    NSDictionary *dict = [[json mkm_data] mkm_jsonDictionary];
     self = [self initWithDictionary:dict];
     return self;
 }

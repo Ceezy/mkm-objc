@@ -12,14 +12,14 @@
 #import "base58.h"
 #import "ripemd160.h"
 
-#import "NSObject+JsON.h"
-#import "NSString+Crypto.h"
+#import "NSObject+MKM_JSON.h"
+#import "NSString+MKM_Decode.h"
 
-#import "NSData+Crypto.h"
+#import "NSData+MKM_Crypto.h"
 
-@implementation NSData (Encode)
+@implementation NSData (MKM_Encode)
 
-- (NSString *)hexEncode {
+- (NSString *)mkm_hexEncode {
     NSMutableString *output = nil;
     
     const char *bytes = (const char *)[self bytes];
@@ -32,7 +32,7 @@
     return output;
 }
 
-- (NSString *)base58Encode {
+- (NSString *)mkm_base58Encode {
     NSString *output = nil;
     
     const unsigned char * pbegin = (const unsigned char *)[self bytes];
@@ -44,7 +44,7 @@
     return output;
 }
 
-- (NSString *)base64Encode {
+- (NSString *)mkm_base64Encode {
     NSDataBase64EncodingOptions opt;
     opt = NSDataBase64EncodingEndLineWithCarriageReturn;
     return [self base64EncodedStringWithOptions:opt];
@@ -52,49 +52,49 @@
 
 @end
 
-@implementation NSData (Hash)
+@implementation NSData (MKM_Hash)
 
-- (NSData *)md5 {
+- (NSData *)mkm_md5 {
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
 }
 
-- (NSData *)sha1 {
+- (NSData *)mkm_sha1 {
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
 }
 
-- (NSData *)sha224 {
+- (NSData *)mkm_sha224 {
     unsigned char digest[CC_SHA224_DIGEST_LENGTH];
     CC_SHA224([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_SHA224_DIGEST_LENGTH];
 }
 
-- (NSData *)sha256 {
+- (NSData *)mkm_sha256 {
     unsigned char digest[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
 }
 
-- (NSData *)sha384 {
+- (NSData *)mkm_sha384 {
     unsigned char digest[CC_SHA384_DIGEST_LENGTH];
     CC_SHA384([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_SHA384_DIGEST_LENGTH];
 }
 
-- (NSData *)sha512 {
+- (NSData *)mkm_sha512 {
     unsigned char digest[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512([self bytes], (CC_LONG)[self length], digest);
     return [[NSData alloc] initWithBytes:digest length:CC_SHA512_DIGEST_LENGTH];
 }
 
-- (NSData *)sha256d {
-    return [[self sha256] sha256];
+- (NSData *)mkm_sha256d {
+    return [[self mkm_sha256] mkm_sha256];
 }
 
-- (NSData *)ripemd160 {
+- (NSData *)mkm_ripemd160 {
     NSData *output = nil;
     
     unsigned char *buf = (unsigned char *)[self bytes];
@@ -109,9 +109,9 @@
 
 @end
 
-@implementation NSData (AES)
+@implementation NSData (MKM_AES)
 
-- (NSData *)AES256EncryptWithKey:(const NSData *)key
+- (NSData *)mkm_AES256EncryptWithKey:(const NSData *)key
             initializationVector:(nullable const NSData *)iv {
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise
     char keyPtr[kCCKeySizeAES256+1]; // room for terminator (unused)
@@ -145,7 +145,7 @@
     return [[NSData alloc] initWithBytesNoCopy:buffer length:numBytesEncrypted];
 }
 
-- (NSData *)AES256DecryptWithKey:(const NSData *)key
+- (NSData *)mkm_AES256DecryptWithKey:(const NSData *)key
             initializationVector:(nullable const NSData *)iv {
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise
     char keyPtr[kCCKeySizeAES256+1]; // room for terminator (unused)

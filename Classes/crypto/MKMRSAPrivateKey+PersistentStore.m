@@ -6,8 +6,8 @@
 //  Copyright © 2018 DIM Group. All rights reserved.
 //
 
-#import "NSObject+JsON.h"
-#import "NSData+Crypto.h"
+#import "NSObject+MKM_JSON.h"
+#import "NSData+MKM_Crypto.h"
 
 #import "MKMRSAKeyHelper.h"
 
@@ -27,7 +27,7 @@ static const NSString *s_application_tag = @"chat.dim.rsa.private";
     MKMRSAPrivateKey *SK = nil;
     
     NSString *label = [identifier copy];
-    NSData *tag = [s_application_tag data];
+    NSData *tag = [s_application_tag mkm_data];
     
     NSDictionary *query;
     query = @{(id)kSecClass               :(id)kSecClassKey,
@@ -53,8 +53,8 @@ static const NSString *s_application_tag = @"chat.dim.rsa.private";
         NSString *algorithm = @"RSA";
         NSString *pkFmt = @"-----BEGIN PUBLIC KEY----- %@ -----END PUBLIC KEY-----";
         NSString *skFmt = @"-----BEGIN RSA PRIVATE KEY----- %@ -----END RSA PRIVATE KEY-----";
-        NSString *pkc = [NSString stringWithFormat:pkFmt, [pkData base64Encode]];
-        NSString *skc = [NSString stringWithFormat:skFmt, [skData base64Encode]];
+        NSString *pkc = [NSString stringWithFormat:pkFmt, [pkData mkm_base64Encode]];
+        NSString *skc = [NSString stringWithFormat:skFmt, [skData mkm_base64Encode]];
         NSString *content = [pkc stringByAppendingString:skc];
         NSDictionary *keyInfo = @{@"algorithm":algorithm,
                                   @"data"     :content,
@@ -76,7 +76,7 @@ static const NSString *s_application_tag = @"chat.dim.rsa.private";
     }
     
     NSString *label = [identifier copy];
-    NSData *tag = [s_application_tag data];
+    NSData *tag = [s_application_tag mkm_data];
     
     NSDictionary *query;
     query = @{(id)kSecClass               :(id)kSecClassKey,

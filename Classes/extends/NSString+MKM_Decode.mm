@@ -10,8 +10,8 @@
 
 #import "base58.h"
 
-#import "NSData+Crypto.h"
-#import "NSString+Crypto.h"
+#import "NSData+MKM_Crypto.h"
+#import "NSString+MKM_Decode.h"
 
 static inline char hex_char(char ch) {
     if (ch >= '0' && ch <= '9') {
@@ -26,9 +26,9 @@ static inline char hex_char(char ch) {
     return 0;
 }
 
-@implementation NSString (Decode)
+@implementation NSString (MKM_Decode)
 
-- (NSData *)hexDecode {
+- (NSData *)mkm_hexDecode {
     NSMutableData *output = nil;
     
     NSString *str = [self copy];
@@ -63,7 +63,7 @@ static inline char hex_char(char ch) {
     return output;
 }
 
-- (NSData *)base58Decode {
+- (NSData *)mkm_base58Decode {
     NSData *output = nil;
     
     const char * cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
@@ -75,7 +75,7 @@ static inline char hex_char(char ch) {
     return output;
 }
 
-- (NSData *)base64Decode {
+- (NSData *)mkm_base64Decode {
     NSDataBase64DecodingOptions opt;
     opt = NSDataBase64DecodingIgnoreUnknownCharacters;
     return [[NSData alloc] initWithBase64EncodedString:self options:opt];
