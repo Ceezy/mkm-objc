@@ -72,10 +72,10 @@
 		E9F3A98121CBBAF7009690F6 /* MKMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A91621CBBAF6009690F6 /* MKMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9F3A98221CBBAF7009690F6 /* ripemd160.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A91A21CBBAF6009690F6 /* ripemd160.h */; };
 		E9F3A98321CBBAF7009690F6 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A91B21CBBAF6009690F6 /* common.h */; };
-		E9F3A98421CBBAF7009690F6 /* ripemd160.mm in Sources */ = {isa = PBXBuildFile; fileRef = E9F3A91C21CBBAF6009690F6 /* ripemd160.mm */; };
+		E9F3A98421CBBAF7009690F6 /* ripemd160.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F3A91C21CBBAF6009690F6 /* ripemd160.cpp */; };
 		E9F3A98521CBBAF7009690F6 /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A91E21CBBAF6009690F6 /* endian.h */; };
 		E9F3A98621CBBAF7009690F6 /* byteswap.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A91F21CBBAF6009690F6 /* byteswap.h */; };
-		E9F3A98721CBBAF7009690F6 /* base58.mm in Sources */ = {isa = PBXBuildFile; fileRef = E9F3A92021CBBAF6009690F6 /* base58.mm */; };
+		E9F3A98721CBBAF7009690F6 /* base58.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F3A92021CBBAF6009690F6 /* base58.cpp */; };
 		E9F3A98821CBBAF7009690F6 /* base58.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A92121CBBAF6009690F6 /* base58.h */; };
 		E9F3A98921CBBAF7009690F6 /* MKMProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A92221CBBAF6009690F6 /* MKMProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9F3A98A21CBBAF7009690F6 /* MKMAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F3A92321CBBAF6009690F6 /* MKMAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -164,10 +164,10 @@
 		E9F3A91621CBBAF6009690F6 /* MKMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMUser.h; sourceTree = "<group>"; };
 		E9F3A91A21CBBAF6009690F6 /* ripemd160.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ripemd160.h; sourceTree = "<group>"; };
 		E9F3A91B21CBBAF6009690F6 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		E9F3A91C21CBBAF6009690F6 /* ripemd160.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ripemd160.mm; sourceTree = "<group>"; };
+		E9F3A91C21CBBAF6009690F6 /* ripemd160.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ripemd160.cpp; sourceTree = "<group>"; };
 		E9F3A91E21CBBAF6009690F6 /* endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
 		E9F3A91F21CBBAF6009690F6 /* byteswap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = byteswap.h; sourceTree = "<group>"; };
-		E9F3A92021CBBAF6009690F6 /* base58.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = base58.mm; sourceTree = "<group>"; };
+		E9F3A92021CBBAF6009690F6 /* base58.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base58.cpp; sourceTree = "<group>"; };
 		E9F3A92121CBBAF6009690F6 /* base58.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base58.h; sourceTree = "<group>"; };
 		E9F3A92221CBBAF6009690F6 /* MKMProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMProfile.h; sourceTree = "<group>"; };
 		E9F3A92321CBBAF6009690F6 /* MKMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMAccount.h; sourceTree = "<group>"; };
@@ -371,7 +371,7 @@
 			children = (
 				E9F3A91921CBBAF6009690F6 /* crypto */,
 				E9F3A91D21CBBAF6009690F6 /* compat */,
-				E9F3A92021CBBAF6009690F6 /* base58.mm */,
+				E9F3A92021CBBAF6009690F6 /* base58.cpp */,
 				E9F3A92121CBBAF6009690F6 /* base58.h */,
 			);
 			path = src;
@@ -382,7 +382,7 @@
 			children = (
 				E9F3A91A21CBBAF6009690F6 /* ripemd160.h */,
 				E9F3A91B21CBBAF6009690F6 /* common.h */,
-				E9F3A91C21CBBAF6009690F6 /* ripemd160.mm */,
+				E9F3A91C21CBBAF6009690F6 /* ripemd160.cpp */,
 			);
 			path = crypto;
 			sourceTree = "<group>";
@@ -562,7 +562,7 @@
 				E9BBBDD6223ABDE000E6ACDA /* MKMImmortals.m in Sources */,
 				E9F3A95621CBBAF7009690F6 /* MKMPublicKey.m in Sources */,
 				E9F3A96921CBBAF7009690F6 /* MKMDictionary.m in Sources */,
-				E9F3A98721CBBAF7009690F6 /* base58.mm in Sources */,
+				E9F3A98721CBBAF7009690F6 /* base58.cpp in Sources */,
 				E9F3A97121CBBAF7009690F6 /* MKMChatroom.m in Sources */,
 				E9F3A96F21CBBAF7009690F6 /* MKMPolylogue.m in Sources */,
 				E9F3A96421CBBAF7009690F6 /* NSData+MKM_Crypto.mm in Sources */,
@@ -576,7 +576,7 @@
 				E9F3A95A21CBBAF7009690F6 /* MKMRSAPublicKey.m in Sources */,
 				E9BBBD67223AAA5B00E6ACDA /* NSDate+MKM_Timestamp.m in Sources */,
 				E9F3A95421CBBAF7009690F6 /* MKMAsymmetricKey.m in Sources */,
-				E9F3A98421CBBAF7009690F6 /* ripemd160.mm in Sources */,
+				E9F3A98421CBBAF7009690F6 /* ripemd160.cpp in Sources */,
 				E9F3A95E21CBBAF7009690F6 /* NSString+MKM_Decode.mm in Sources */,
 				E9F3A95321CBBAF7009690F6 /* MKMRSAPrivateKey.m in Sources */,
 				E9F3A97321CBBAF7009690F6 /* MKMGroup.m in Sources */,
