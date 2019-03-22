@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
     s.source_files = 'Classes/*.{h,m}'
 
     s.frameworks = 'Security'
+    s.libraries = 'c++'
 
     s.subspec 'bitcoin' do |ss|
         ss.source_files = 'Classes/bitcoin/src/*.{h,cpp}', 'Classes/bitcoin/src/**/*.{h,cpp}'
